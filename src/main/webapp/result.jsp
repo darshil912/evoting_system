@@ -15,7 +15,11 @@
     HashMap<String, String> count = new HashMap<String, String>();
 
     Class.forName("com.mysql.jdbc.Driver");
-    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/evoting", "root", "123456");
+    String url = System.getenv("DB_URL");
+    String user = System.getenv("DB_USER");
+    String pass = System.getenv("DB_PASSWORD");
+
+    Connection con = DriverManager.getConnection(url, user, pass);
     Statement stmt = con.createStatement();
     ResultSet rs = stmt.executeQuery("select voter,count(voter) as c from voter group by voter");
     int i = 0;
