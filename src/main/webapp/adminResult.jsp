@@ -24,7 +24,7 @@
 
     Connection con=null;
     Class.forName("com.mysql.cj.jdbc.Driver");
-    con= DriverManager.getConnection("jdbc:mysql://localhost:3306/evoting", "root", "");
+    con= DriverManager.getConnection("jdbc:mysql://localhost:3306/evoting", "root", "123456");
     String sql="select * from partytable";
 
     PreparedStatement statement=con.prepareStatement(sql);
@@ -61,23 +61,44 @@
                                 <th  style="text-align: center">No. of Votes</th>
                                 <th > </th>
                             </tr>
-                            <% while (rs.next()){
-                                String  partyCode=rs.getString(2);
-                                String  partyName=rs.getString(3);
-                                String votes = count.get(partyCode);
+                            <%
+                            Integer winner = 0;
 
-                                Integer winner = Collections.max(countInt.values());
+                            if(!countInt.isEmpty()){
+                                winner = Collections.max(countInt.values());
+                            }
+
+                            while (rs.next()){
+                                String partyCode = rs.getString(2);
+                                String partyName = rs.getString(3);
+
+                                String votes = count.get(partyCode);
+                                if(votes == null){
+                                    votes = "0";
+                                }
+
+                                int voteCount = Integer.parseInt(votes);
                             %>
-                            <tr >
-                                <td  style="text-align: center"><%=partyCode%></td>
-                                <td  style="text-align: center"><%=partyName%></td>
-                                <td  style="text-align: center"><%=votes%></td>
-                                <td  style="text-align: center">
-                                    <% if(winner.equals(Integer.parseInt(votes))){%>
-                                    <%="Winner"%></td>
-                                <%}%>
+
+                            <tr>
+                                <td style="text-align: center"><%=partyCode%></td>
+                                <td style="text-align: center"><%=partyName%></td>
+                                <td style="text-align: center"><%=votes%></td>
+                                <td style="text-align: center">
+                                    <%
+                                    if(winner == voteCount){
+                                    %>
+                                        Winner
+                                    <%
+                                    }
+                                    %>
+                                </td>
                             </tr>
-                            <%}%>
+
+                            <%
+                            }
+                            %>
+
                         </table>
                         </div>
                     </div>

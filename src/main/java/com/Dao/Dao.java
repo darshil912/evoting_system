@@ -18,7 +18,7 @@ public class Dao {
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
             //database_name --> evoting
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/evoting", "root", "");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/evoting", "root", "123456");
         }
         catch (Exception e)
         {
@@ -65,7 +65,7 @@ public class Dao {
             String sql2="insert ignore into voter(voter_card_number,voter) values(?,?)";
             PreparedStatement preparedStatement=con.prepareStatement(sql2);
             preparedStatement.setString(1, m.getVoterId());
-            preparedStatement.setString(2,m.getVote());
+            preparedStatement.setString(2, m.getVote().replace(">", "").trim());
             result=preparedStatement.executeUpdate();
             return result;
         }

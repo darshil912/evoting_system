@@ -34,7 +34,7 @@ public class AddParty extends HttpServlet {
             Connection con=null;
             Class.forName("com.mysql.cj.jdbc.Driver");
             //database_name --> evoting
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/evoting", "root", "");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/evoting", "root", "123456");
 
             String sql="INSERT INTO partyTable (partyCode, partyName, photo) values (?, ?, ?)";
             PreparedStatement ps=con.prepareStatement(sql);

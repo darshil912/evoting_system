@@ -51,7 +51,7 @@ String message= request.getParameter("msg");
 
                             Connection con = null;
                             Class.forName("com.mysql.cj.jdbc.Driver");
-                            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/evoting", "root", "");
+                            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/evoting", "root", "123456");
                             String sql = "delete from partytable where pid=?";
 
                             PreparedStatement statement = con.prepareStatement(sql);
